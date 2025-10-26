@@ -45,8 +45,8 @@ func _process(_delta):
 
 func _update_chunks(center_chunk: Vector2i):
 	# Load necessary chunks around player
-	for x in range(center_chunk.x - visible_radius * CHUNK_SIZE, center_chunk.x + (visible_radius + 1) * CHUNK_SIZE):
-		for y in range(center_chunk.y - visible_radius * CHUNK_SIZE, center_chunk.y + (visible_radius + 1) * CHUNK_SIZE):
+	for x in range(center_chunk.x - visible_radius, center_chunk.x + visible_radius + 1):
+		for y in range(center_chunk.y - visible_radius, center_chunk.y + visible_radius + 1):
 			var coords = Vector2i(x, y)
 			if not loaded_chunks.has(coords):
 				var chunk = chunk_scene.instantiate()
