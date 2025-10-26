@@ -24,8 +24,10 @@ func _process(delta):
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
 		$AnimatedSprite2D.play()
+		_play_step_sound()
 	else:
 		$AnimatedSprite2D.stop()
+		_stop_step_sound()
 
 	# Normalize and apply speed
 	if velocity != Vector2.ZERO:
@@ -38,6 +40,14 @@ func _process(delta):
 		$AnimatedSprite2D.flip_h = velocity.x < 0
 	elif velocity.y != 0:
 		$AnimatedSprite2D.animation = &"up" if velocity.y < 0 else &"down"
+		
+func _play_step_sound():
+	if not $FootstepForest.playing:
+		$FootstepForest.play()
+
+func _stop_step_sound():
+	if $FootstepForest.playing:
+		$FootstepForest.stop()
 
 # Called when touching a poisonous mushroom
 func on_poisonous_mushroom_touched():
