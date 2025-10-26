@@ -93,6 +93,8 @@ func instantiate_chunk(coords: Vector2i, resource: Resource):
 	add_child(new_chunk)
 	loaded_chunks[coords] = new_chunk
 	
+	# Load mushrooms for this chunk
+	spawn_mushrooms_from_global_data(new_chunk, coords)
 # --- Unloading ---
 
 func unload_distant_chunks(required_chunks: Array[Vector2i]):
@@ -110,4 +112,14 @@ func unload_distant_chunks(required_chunks: Array[Vector2i]):
 		chunk.queue_free() 
 		loaded_chunks.erase(coords)
 
-# ... rest of the script (like _ready) remains empty now ...
+func spawn_mushrooms_from_global_data(chunk: Node2D, coords: Vector2i):
+	if not Global.WORLD_MUSHROOM_DATA.has(coords):
+		return
+	
+	for mushroom_data in Global.WORLD_MUSHROOM_DATA[coords]:
+		var scene = mushroom_data["scene"]
+		if scene:
+			var mushroom = scene.instantiate()
+			mushroom.position = mushroom_data["pos"]
+			mushroom.type = mushroom_data["type"]
+			chunk.add_child(mushroom)

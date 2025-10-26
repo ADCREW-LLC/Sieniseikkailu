@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2vt1pq0448il"
-path="res://.godot/imported/poisonous-mushroom-1.png-0f1b2f5ee24d3bd0bfd27c7922249c2e.ctex"
+uid="uid://cmmaankjijwss"
+path="res://.godot/imported/chanterelle.png-ab319f4e54354ff5a269b3cfffaf253f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://arts/mushrooms/poisonous-mushroom-1.png"
-dest_files=["res://.godot/imported/poisonous-mushroom-1.png-0f1b2f5ee24d3bd0bfd27c7922249c2e.ctex"]
+source_file="res://arts/mushrooms/chanterelle.png"
+dest_files=["res://.godot/imported/chanterelle.png-ab319f4e54354ff5a269b3cfffaf253f.ctex"]
 
 [params]
 
