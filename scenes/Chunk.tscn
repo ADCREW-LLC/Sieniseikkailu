@@ -1,11 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhfo3eenp1fuy"]
+[gd_scene load_steps=3 format=3 uid="uid://bhfo3eenp1fuy"]
 
 [ext_resource type="Script" uid="uid://bit24o51m5njk" path="res://scripts/chunk.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://c0aatbkghr10q" path="res://arts/forest/grass-texture.png" id="2_qt7hk"]
 
 [node name="Chunk" type="Node2D"]
 script = ExtResource("1")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-color = Color(0.11661934, 0.6522889, 0.6457974, 1)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_repeat = 2
+texture = ExtResource("2_qt7hk")
