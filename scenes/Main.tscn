@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1xfytyaf7p6"]
+
+[ext_resource type="Script" uid="uid://ch5b1i8io0gmq" path="res://scripts/main.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://23ke3dloqhq6" path="res://scenes/Player.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://bhfo3eenp1fuy" path="res://scenes/Chunk.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://b8bo7jvy50h8u" path="res://scenes/Mushroom.tscn" id="4"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("2_vcsgt")
+
+[node name="Chunk" parent="." instance=ExtResource("3")]
+
+[node name="Mushroom" parent="." instance=ExtResource("4")]
+z_index = 5
+
+[node name="Player" parent="." instance=ExtResource("2")]
+z_index = 100
+position = Vector2(100, 100)
+scale = Vector2(0.5, 0.5)

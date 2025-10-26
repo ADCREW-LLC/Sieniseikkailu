@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8bo7jvy50h8u"]
+
+[ext_resource type="Script" uid="uid://ccy47rbpk5fue" path="res://scripts/mushroom.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://b2vt1pq0448il" path="res://arts/mushrooms/poisonous-mushroom-1.png" id="2_g8vuh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cj3ry"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g8vuh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cj3ry"]
+
+[node name="Mushroom" type="Area2D"]
+scale = Vector2(0.3, 0.3)
+script = ExtResource("1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_cj3ry")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cj3ry")
