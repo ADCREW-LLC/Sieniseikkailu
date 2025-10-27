@@ -69,20 +69,13 @@ func check_and_load_new_chunks(required_chunks: Array[Vector2i]):
 
 
 func schedule_load(coords: Vector2i):
-	#var path = "res://scenes/Chunk_%s_%s.tscn" % [coords.x, coords.y]
 	var path = "res://scenes/Chunk.tscn"
-	
-	print("Loading chunk at (%s, %s)" % [coords.x, coords.y])
-	
-	if not FileAccess.file_exists(path):
-		return
 		
 	var error = ResourceLoader.load_threaded_request(path)
 	if error == OK:
 		loading_requests[coords] = path
 	else:
 		print("Error scheduling load for %s: %s" % [coords, error])
-
 
 func instantiate_chunk(coords: Vector2i, resource: Resource):
 	var new_chunk = resource.instantiate()
