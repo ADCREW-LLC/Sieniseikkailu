@@ -1,6 +1,6 @@
 extends Node2D
 
-## Configuration
+## Configuration!!!
 const CHUNK_SIZE = 1024 # Your defined chunk size
 const CHUNKS_TO_LOAD = 2   # Load/keep chunks within this radius (e.g., 2 means 5x5 grid)
 
