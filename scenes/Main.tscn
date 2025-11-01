@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://c1xfytyaf7p6"]
 
-[ext_resource type="Script" uid="uid://ch5b1i8io0gmq" path="res://arts/main.gd" id="1"]
+[ext_resource type="Script" uid="uid://ch5b1i8io0gmq" path="res://scripts/main.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://23ke3dloqhq6" path="res://scenes/Player.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://bhfo3eenp1fuy" path="res://scenes/Chunk.tscn" id="3"]
 [ext_resource type="AudioStream" uid="uid://jlul2vn8altj" path="res://arts/musics/retro-gaming-271301.mp3" id="4_rarhs"]
