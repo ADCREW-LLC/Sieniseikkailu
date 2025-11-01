@@ -20,7 +20,8 @@ func _process(delta):
 		velocity.y += 1
 	if Input.is_action_pressed("move_up"):
 		velocity.y -= 1
-		
+
+	# Handle movement + animation
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
 		$AnimatedSprite2D.play()
@@ -29,17 +30,27 @@ func _process(delta):
 		$AnimatedSprite2D.stop()
 		_stop_step_sound()
 
-	# Normalize and apply speed
+	# Move player manually
 	if velocity != Vector2.ZERO:
-		velocity = velocity.normalized() * speed
-		position += velocity * delta  # manually move player
-		
+		position += velocity * delta
+
+	# Direction handling + scaling
 	if velocity.x != 0:
 		$AnimatedSprite2D.animation = &"right"
 		$AnimatedSprite2D.flip_v = false
 		$AnimatedSprite2D.flip_h = velocity.x < 0
+
+		# Scale horizontally facing animations
+		$AnimatedSprite2D.scale = Vector2(1.0, 1.0)  # normal size
+
 	elif velocity.y != 0:
-		$AnimatedSprite2D.animation = &"up" if velocity.y < 0 else &"down"
+		if velocity.y < 0:
+			$AnimatedSprite2D.animation = &"up"
+		else:
+			$AnimatedSprite2D.animation = &"down"
+
+		# Scale vertical-facing animations
+		$AnimatedSprite2D.scale = Vector2(0.8, 0.8)  # slightly smaller
 		
 func _play_step_sound():
 	if not $FootstepForest.playing:
