@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://behq8yniektos"]
+
+[ext_resource type="Script" uid="uid://dd7o3w4rgi2v8" path="res://scripts/static_object.gd" id="1_jqd1d"]
+[ext_resource type="Texture2D" uid="uid://io7ioxedriq4" path="res://arts/rocks/Rock6_grass_shadow_dark1.png" id="2_me150"]
+
+[node name="StaticObject" type="Node2D"]
+script = ExtResource("1_jqd1d")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_me150")

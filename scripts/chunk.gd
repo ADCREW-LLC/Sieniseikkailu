@@ -12,6 +12,12 @@ var loaded_chunks = {}
 # Stores active loading requests: { Vector2i(chunk_x, chunk_y): String(path) }
 var loading_requests = {} 
 
+# --- Injected: preload static object scene and textures ---
+var StaticObjectScene: PackedScene = preload("res://scenes/StaticObject.tscn")
+const STATIC_OBJECTS_PER_CHUNK := 20  # how many decorative static objects to spawn per chunk
+const STATIC_OBJECT_EDGE_MARGIN := 64  # pixels of safety from the chunk border
+# ----------------------------------------------------------
+
 ## Core Logic: Get the chunk coordinates based on player position
 func get_chunk_coords(global_pos: Vector2) -> Vector2i:
 	var chunk_x = floor(global_pos.x / CHUNK_SIZE)
@@ -38,22 +44,19 @@ func _process(_delta):
 # --- Loading and Status Checking ---
 
 func check_and_load_new_chunks(required_chunks: Array[Vector2i]):
-	# A. Schedule new loads for chunks that are required but not loading/loaded
 	for coords in required_chunks:
 		if not loaded_chunks.has(coords) and not loading_requests.has(coords):
 			schedule_load(coords)
 
-	# B. Check the status of existing loading requests
 	var completed_requests = []
 	for coords in loading_requests.keys():
 		var path = loading_requests[coords]
 		var status = ResourceLoader.load_threaded_get_status(path)
 		
 		if status == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
-			continue # Still loading, check next frame
+			continue
 		
 		if status == ResourceLoader.THREAD_LOAD_LOADED:
-			# Load is complete! Instantiate it now.
 			var resource = ResourceLoader.load_threaded_get(path)
 			if resource:
 				instantiate_chunk(coords, resource)
@@ -63,14 +66,11 @@ func check_and_load_new_chunks(required_chunks: Array[Vector2i]):
 			print("Chunk load failed for: ", path)
 			completed_requests.append(coords)
 			
-	# Clean up completed requests from the dictionary
 	for coords in completed_requests:
 		loading_requests.erase(coords)
 
-
 func schedule_load(coords: Vector2i):
 	var path = "res://scenes/Chunk.tscn"
-		
 	var error = ResourceLoader.load_threaded_request(path)
 	if error == OK:
 		loading_requests[coords] = path
@@ -79,15 +79,17 @@ func schedule_load(coords: Vector2i):
 
 func instantiate_chunk(coords: Vector2i, resource: Resource):
 	var new_chunk = resource.instantiate()
-	# Load here!
 	
-	# Position the chunk based on its grid coordinate
+	# --- Injected: random decorative static objects ---
+	spawn_static_static_objects(new_chunk)
+	# -----------------------------------------
+	
 	new_chunk.global_position = Vector2(coords.x, coords.y) * CHUNK_SIZE
 	add_child(new_chunk)
 	loaded_chunks[coords] = new_chunk
 	
-	# Load mushrooms for this chunk
 	spawn_mushrooms_from_global_data(new_chunk, coords)
+
 # --- Unloading ---
 
 func unload_distant_chunks(required_chunks: Array[Vector2i]):
@@ -98,10 +100,6 @@ func unload_distant_chunks(required_chunks: Array[Vector2i]):
 			
 	for coords in chunks_to_unload:
 		var chunk = loaded_chunks[coords]
-		
-		# Optimization: If a chunk is unloaded, first check if any important object 
-		# inside it needs a graceful exit (e.g., saving state).
-		
 		chunk.queue_free() 
 		loaded_chunks.erase(coords)
 
@@ -116,3 +114,16 @@ func spawn_mushrooms_from_global_data(chunk: Node2D, coords: Vector2i):
 			mushroom.position = mushroom_data["pos"]
 			mushroom.type = mushroom_data["type"]
 			chunk.add_child(mushroom)
+
+# --- Injected helper function ---
+func spawn_static_static_objects(chunk: Node2D):
+	
+	for i in STATIC_OBJECTS_PER_CHUNK:
+		var staticObject = StaticObjectScene.instantiate()
+		
+		# keep a safe distance from chunk edges
+		var pos_x = randi_range(STATIC_OBJECT_EDGE_MARGIN, CHUNK_SIZE - STATIC_OBJECT_EDGE_MARGIN)
+		var pos_y = randi_range(STATIC_OBJECT_EDGE_MARGIN, CHUNK_SIZE - STATIC_OBJECT_EDGE_MARGIN)
+		staticObject.position = Vector2(pos_x, pos_y)
+		
+		chunk.add_child(staticObject)
