@@ -1,7 +1,6 @@
 extends Node2D
 
-## Configuration!!!
-const CHUNK_SIZE = 1024 # Your defined chunk size
+## Configuration
 const CHUNKS_TO_LOAD = 2   # Load/keep chunks within this radius (e.g., 2 means 5x5 grid)
 
 @onready var player = get_parent().get_node("Player")
@@ -12,16 +11,10 @@ var loaded_chunks = {}
 # Stores active loading requests: { Vector2i(chunk_x, chunk_y): String(path) }
 var loading_requests = {} 
 
-# --- Injected: preload static object scene and textures ---
-var StaticObjectScene: PackedScene = preload("res://scenes/StaticObject.tscn")
-const STATIC_OBJECTS_PER_CHUNK := 20  # how many decorative static objects to spawn per chunk
-const STATIC_OBJECT_EDGE_MARGIN := 64  # pixels of safety from the chunk border
-# ----------------------------------------------------------
-
 ## Core Logic: Get the chunk coordinates based on player position
 func get_chunk_coords(global_pos: Vector2) -> Vector2i:
-	var chunk_x = floor(global_pos.x / CHUNK_SIZE)
-	var chunk_y = floor(global_pos.y / CHUNK_SIZE)
+	var chunk_x = floor(global_pos.x / Global.CHUNK_SIZE)
+	var chunk_y = floor(global_pos.y / Global.CHUNK_SIZE)
 	return Vector2i(chunk_x, chunk_y)
 
 func _process(_delta):
@@ -80,18 +73,13 @@ func schedule_load(coords: Vector2i):
 func instantiate_chunk(coords: Vector2i, resource: Resource):
 	var new_chunk = resource.instantiate()
 	
-	# --- Injected: random decorative static objects ---
-	spawn_static_static_objects(new_chunk)
-	# -----------------------------------------
-	
-	new_chunk.global_position = Vector2(coords.x, coords.y) * CHUNK_SIZE
+	new_chunk.global_position = Vector2(coords.x, coords.y) * Global.CHUNK_SIZE
 	add_child(new_chunk)
 	loaded_chunks[coords] = new_chunk
 	
 	spawn_mushrooms_from_global_data(new_chunk, coords)
-
-# --- Unloading ---
-
+	spawn_objects_from_global_data(new_chunk, coords)
+	
 func unload_distant_chunks(required_chunks: Array[Vector2i]):
 	var chunks_to_unload = []
 	for coords in loaded_chunks.keys():
@@ -116,14 +104,12 @@ func spawn_mushrooms_from_global_data(chunk: Node2D, coords: Vector2i):
 			chunk.add_child(mushroom)
 
 # --- Injected helper function ---
-func spawn_static_static_objects(chunk: Node2D):
-	
-	for i in STATIC_OBJECTS_PER_CHUNK:
-		var staticObject = StaticObjectScene.instantiate()
-		
-		# keep a safe distance from chunk edges
-		var pos_x = randi_range(STATIC_OBJECT_EDGE_MARGIN, CHUNK_SIZE - STATIC_OBJECT_EDGE_MARGIN)
-		var pos_y = randi_range(STATIC_OBJECT_EDGE_MARGIN, CHUNK_SIZE - STATIC_OBJECT_EDGE_MARGIN)
-		staticObject.position = Vector2(pos_x, pos_y)
-		
-		chunk.add_child(staticObject)
+func spawn_objects_from_global_data(chunk: Node2D, coords: Vector2i):
+	if not Global.WORLD_STATIC_DATA.has(coords):
+		return
+	var scene = preload("res://scenes/StaticObject.tscn")
+	if scene:
+		for object_data in Global.WORLD_STATIC_DATA[coords]:
+			var object = scene.instantiate()
+			object.position = object_data["pos"]
+			chunk.add_child(object)

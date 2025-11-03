@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://io7ioxedriq4" path="res://arts/rocks/Rock6_grass_shadow_dark1.png" id="2_me150"]
 
 [node name="StaticObject" type="Node2D"]
+z_index = 1
 script = ExtResource("1_jqd1d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
