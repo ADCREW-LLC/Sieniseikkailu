@@ -3,7 +3,8 @@ extends Area2D
 
 @export var type: String = "Boletus edulis"  # Default type
 @export var poisonous: bool = false          # True if poisonous
-@export var points_value: int = 1            # Points for healthy mushrooms
+@export var points_value: int = 1            # Counts the mushrooms to points // using this as an easy access to counter
+@export var edible: bool = true              # Easy access to counting the amount of edible mushrooms
 
 var player_in_range = false
 
@@ -32,16 +33,20 @@ func _ready():
 	match type:
 		"Amanita muscaria": # poisonous
 			poisonous = true
-			points_value = -1
+			edible = false    # it's poisonous, so this is false
+			points_value = 1
 		"Boletus edulis": # healthy
 			poisonous = false
+			edible = true     # it's edible, so this is true
 			points_value = 1
-		"Cantharellus cibarius": # healthy
+		"Cantharellus cibarius": # healthy 
 			poisonous = false
-			points_value = 2
-		_:
-			poisonous = false # neutral
-			points_value = 0
+			edible = true 
+			points_value = 1
+			
+		#_:  #(If we want to add more types. Added this as a comment to avoid interference with chantarellus' code.)
+			#poisonous = false # neutral
+			#points_value = 1
 
 func _on_body_entered(body):
 	if body.name == "Player":
@@ -52,12 +57,3 @@ func _on_body_entered(body):
 func _on_body_exited(body):
 	if body.name == "Player":
 		player_in_range = false
-
-func _process(_delta):
-	# Collect healthy mushroom if player presses Space
-	if player_in_range and not poisonous:
-		if Input.is_action_just_pressed("ui_accept"):
-			var player = get_overlapping_bodies().find(func(b): return b.name == "Player")
-			if player:
-				player.on_healthy_mushroom_collected(points_value)
-				queue_free()
