@@ -1,8 +1,9 @@
-[gd_scene load_steps=92 format=3 uid="uid://23ke3dloqhq6"]
+[gd_scene load_steps=94 format=3 uid="uid://23ke3dloqhq6"]
 
 [ext_resource type="Script" uid="uid://cpqufyb3d7y0a" path="res://scripts/player.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dlesywm5ojv0c" path="res://arts/player/go-down-sprite-sheet.png" id="2_qu4a1"]
 [ext_resource type="Texture2D" uid="uid://bj0nbsglfc0u7" path="res://arts/player/go-up-sprite-sheet.png" id="3_mdl7e"]
+[ext_resource type="Script" uid="uid://bnuqn75qvok7m" path="res://scenes/pickup_area.gd" id="6_cw2d6"]
 [ext_resource type="Texture2D" uid="uid://jdkxgnobyprs" path="res://arts/player/go-right-sprite-sheet.png" id="15_xsi7p"]
 [ext_resource type="AudioStream" uid="uid://dts3bbu4e8d7n" path="res://arts/player/sounds/footstep_forest.wav" id="38_c0asu"]
 
@@ -616,6 +617,9 @@ animations = [{
 radius = 80.0
 height = 260.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qu4a1"]
+size = Vector2(150, 150)
+
 [node name="Player" type="Area2D"]
 script = ExtResource("1")
 
@@ -629,3 +633,15 @@ shape = SubResource("CapsuleShape2D_p07f3")
 
 [node name="FootstepForest" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("38_c0asu")
+
+[node name="PickupArea" type="Area2D" parent="."]
+collision_mask = 2
+script = ExtResource("6_cw2d6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+modulate = Color(1, 0, 1, 1)
+top_level = true
+shape = SubResource("RectangleShape2D_qu4a1")
+debug_color = Color(0.99215686, 0, 0.25490198, 1)
+
+[connection signal="area_entered" from="PickupArea" to="PickupArea" method="_on_area_entered"]

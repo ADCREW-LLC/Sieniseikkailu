@@ -101,7 +101,7 @@ func spawn_mushrooms_from_global_data(chunk: Node2D, coords: Vector2i):
 			var mushroom = scene.instantiate()
 			mushroom.position = mushroom_data["pos"]
 			mushroom.type = mushroom_data["type"]
-			chunk.add_child(mushroom)
+			chunk.add_child(mushroom, false)
 
 # --- Injected helper function ---
 func spawn_objects_from_global_data(chunk: Node2D, coords: Vector2i):
