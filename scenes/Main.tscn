@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bhfo3eenp1fuy" path="res://scenes/Chunk.tscn" id="3"]
 [ext_resource type="AudioStream" uid="uid://jlul2vn8altj" path="res://arts/musics/retro-gaming-271301.mp3" id="4_rarhs"]
 [ext_resource type="Texture2D" uid="uid://b2vt1pq0448il" path="res://arts/mushrooms/amanita_muscaria.png" id="5_vcsgt"]
-[ext_resource type="Script" uid="uid://coqjhglj8r4y6" path="res://scenes/score_label.gd" id="6_c01mt"]
+[ext_resource type="Script" uid="uid://coqjhglj8r4y6" path="res://scripts/score_label.gd" id="6_c01mt"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1")
