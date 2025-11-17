@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1xfytyaf7p6"]
+[gd_scene load_steps=8 format=3 uid="uid://c1xfytyaf7p6"]
 
 [ext_resource type="Script" uid="uid://ch5b1i8io0gmq" path="res://scripts/main.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://23ke3dloqhq6" path="res://scenes/Player.tscn" id="2"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://jlul2vn8altj" path="res://arts/musics/retro-gaming-271301.mp3" id="4_rarhs"]
 [ext_resource type="Texture2D" uid="uid://b2vt1pq0448il" path="res://arts/mushrooms/amanita_muscaria.png" id="5_vcsgt"]
 [ext_resource type="Script" uid="uid://coqjhglj8r4y6" path="res://scripts/score_label.gd" id="6_c01mt"]
+[ext_resource type="Script" uid="uid://vahvmyitpio5" path="res://scenes/pause_menu.gd" id="7_nxtc6"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1")
@@ -43,3 +44,104 @@ offset_bottom = 86.0
 theme_override_font_sizes/font_size = 48
 text = "0"
 script = ExtResource("6_c01mt")
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("7_nxtc6")
+
+[node name="Control" type="Control" parent="PauseMenu"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1158.0
+offset_bottom = 646.0
+
+[node name="PauseStack" type="HBoxContainer" parent="PauseMenu/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -242.5
+offset_top = -38.5
+offset_right = 242.5
+offset_bottom = 38.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResumeButton" type="Button" parent="PauseMenu/Control/PauseStack"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Resume"
+
+[node name="MainMenuButton" type="Button" parent="PauseMenu/Control/PauseStack"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Main Menu"
+
+[node name="QuitButton" type="Button" parent="PauseMenu/Control/PauseStack"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Quit"
+
+[node name="PickupUI" type="CanvasLayer" parent="."]
+
+[node name="MushroomPopup" type="Control" parent="PickupUI"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MushroomImage" type="TextureRect" parent="PickupUI/MushroomPopup"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MushroomInfo" type="Label" parent="PickupUI/MushroomPopup"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="PickupStack" type="HBoxContainer" parent="PickupUI/MushroomPopup"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.5
+offset_top = -28.5
+offset_right = 123.5
+offset_bottom = 28.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 200
+
+[node name="Collect" type="Button" parent="PickupUI/MushroomPopup/PickupStack"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Collect"
+
+[node name="Leave" type="Button" parent="PickupUI/MushroomPopup/PickupStack"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Leave"
+
+[connection signal="pressed" from="PauseMenu/Control/PauseStack/ResumeButton" to="PauseMenu" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PauseMenu/Control/PauseStack/MainMenuButton" to="PauseMenu" method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="PauseMenu/Control/PauseStack/QuitButton" to="PauseMenu" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="PickupUI/MushroomPopup/PickupStack/Collect" to="Player/PickupArea" method="_on_collect_pressed"]
+[connection signal="pressed" from="PickupUI/MushroomPopup/PickupStack/Leave" to="Player/PickupArea" method="_on_leave_pressed"]
+
+[editable path="Player"]
