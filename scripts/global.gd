@@ -10,7 +10,12 @@ var WORLD_STATIC_DATA: Dictionary = {}
 const MUSHROOM_TYPES = [
 	{ "name": "Boletus edulis", "scene": preload("res://scenes/Mushroom.tscn") },
 	{ "name": "Amanita muscaria", "scene": preload("res://scenes/Mushroom.tscn") },
-	{ "name": "Chanterelle", "scene": preload("res://scenes/Mushroom.tscn") }
+	{ "name": "Chanterelle", "scene": preload("res://scenes/Mushroom.tscn") },
+	{ "name": "Suillus Grevillei", "scene": preload("res://scenes/Mushroom.tscn") },
+	{ "name": "Amanita Virosa", "scene": preload("res://scenes/Mushroom.tscn") },
+	{ "name": "Hygrocybe Chlorophana", "scene": preload("res://scenes/Mushroom.tscn") },
+	{ "name": "Hygrocybe Punicea", "scene": preload("res://scenes/Mushroom.tscn") },
+	{ "name": "Russula Paludosa", "scene": preload("res://scenes/Mushroom.tscn") }
 ]
 
 func _ready():
