@@ -15,7 +15,12 @@ var player_in_range = false
 const MUSHROOM_SPRITES := {
 	"Boletus edulis": preload("res://arts/mushrooms/boletus_edulis.png"),
 	"Amanita muscaria": preload("res://arts/mushrooms/amanita_muscaria.png"),
-	"Chanterelle": preload("res://arts/mushrooms/chanterelle.png")
+	"Chanterelle": preload("res://arts/mushrooms/chanterelle.png"),
+	"Amanita Virosa": preload("res://arts/mushrooms/Amanita-virosa.png"),
+	"Hygrocybe Chlorophana": preload("res://arts/mushrooms/Hygrocybe-chlorophana.png"),
+	"Hygrocybe Punicea": preload("res://arts/mushrooms/Hygrocybe-punicea.png"),
+	"Suillus Grevillei": preload("res://arts/mushrooms/suillus-grevillei.png"),
+	"Russula Paludosa": preload("res://arts/mushrooms/Russula-paludosa.png")
 }
 
 func _ready():
@@ -34,12 +39,32 @@ func _ready():
 		"Amanita muscaria": # poisonous
 			poisonous = true
 			edible = false    # it's poisonous, so this is false
-			points_value = 1
+			points_value = -1
 		"Boletus edulis": # healthy
 			poisonous = false
 			edible = true     # it's edible, so this is true
 			points_value = 1
 		"Cantharellus cibarius": # healthy 
+			poisonous = false
+			edible = true 
+			points_value = 1
+		"Amanita Virosa":
+			poisonous = true
+			edible = false 
+			points_value = -1
+		"Hygrocybe Chlorophana":
+			poisonous = true
+			edible = false 
+			points_value = -1
+		"Hygrocybe Punicea": 
+			poisonous = false
+			edible = true 
+			points_value = 1
+		"Suillus Grevillei":
+			poisonous = false
+			edible = true 
+			points_value = 1
+		"Russula Paludosa":
 			poisonous = false
 			edible = true 
 			points_value = 1
