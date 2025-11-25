@@ -2,7 +2,7 @@ extends Node
 
 const CHUNK_SIZE = 1024 # Your defined chunk size, should be the same size of the background image of the chunk
 const OBJECT_MARGIN = 0
-const OBJECT_PER_CHUNK = 10
+const OBJECT_PER_CHUNK = 30
 
 var WORLD_MUSHROOM_DATA: Dictionary = {}
 var WORLD_STATIC_DATA: Dictionary = {}
@@ -36,7 +36,7 @@ func generate_world_data():
 			for i in range(item_count):
 				var pos = Vector2(rng.randf_range(OBJECT_MARGIN, CHUNK_SIZE - OBJECT_MARGIN), 
 					rng.randf_range(OBJECT_MARGIN, CHUNK_SIZE - OBJECT_MARGIN))
-				if randi_range(1, 10) <= 3: 
+				if randi_range(1, 30) <= 5: 
 					var data = MUSHROOM_TYPES.pick_random()
 					mushrooms.append({
 						"type": data["name"],

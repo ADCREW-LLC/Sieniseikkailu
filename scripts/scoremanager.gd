@@ -1,6 +1,7 @@
 extends Node
 
 var score: int = 0
+
 signal score_changed(new_score)
 				# Scoremanager is the global function for the scoring system, which is created so that we can call it wherever we want
 func add_points(points_value: int):
@@ -9,6 +10,12 @@ func add_points(points_value: int):
 	emit_signal("score_changed", score)
 	print("Score:", score)
 
+func _process(_delta: float) -> void:
+		#Handles scene switching to the end game scene
+	if score == 10:
+		get_tree().change_scene_to_file("res://scenes/end_screen.tscn")			#Replace this with the end scene to switch to the game over when you hit 10 mushrooms
+		reset_score()
+		get_tree().paused = false
 
 # Functions for poisonous counter, which will be used in the end screen.
 var poisonous_count: int = 0
