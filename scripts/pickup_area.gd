@@ -30,7 +30,7 @@ func deactivate_area():
 	self.visible = false
 	self.set_deferred("monitoring", false)  # disable collision detection
 	
-var collected_mushrooms: Array = [] 									#Stores mushrooms in this array
+var collected_mushrooms = [] 									#Stores mushrooms in this array
 
 func _on_area_entered(area: Area2D):
 	
@@ -51,7 +51,8 @@ func get_collected_mushrooms() -> Array:
 	
 func open_popup(area: Area2D):
 	popup.visible = true
-	# popup.get_node("TextureRect").texture = null area.mushroom_texture  #Currently broken since there isnt a texuture set for the mushrooms, add later
+	$/root/Main/PickupUI/MushroomPopup/PickupStack/Collect.grab_focus()
+	#popup.get_node("TextureRect").texture = null area.mushroom_texture  #Currently broken since there isnt a texuture set for the mushrooms, add later
 	#popup.get_node("MushroomInfo").text = "This is a " + area.type #This also isnt being used right now but im leaving it here to be used later
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_tree().paused = true
@@ -61,6 +62,8 @@ func _on_collect_pressed():
 		Scoremanager.add_points(current_mushroom.points_value)
 		Scoremanager.add_pcount(current_mushroom.poisonous)
 		Scoremanager.add_ecount(current_mushroom.edible)
+		collected_mushrooms.append(current_mushroom)
+		print(collected_mushrooms)
 		current_mushroom.queue_free()
 		current_mushroom = null
 		close_popup()

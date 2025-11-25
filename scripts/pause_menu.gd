@@ -11,6 +11,8 @@ func toggle_pause():
 	get_tree().paused = is_paused
 	visible = is_paused
 	
+	$Control/PauseStack/ResumeButton.grab_focus()
+	
 	if is_paused:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	else:

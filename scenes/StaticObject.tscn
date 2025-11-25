@@ -5,6 +5,7 @@
 
 [node name="StaticObject" type="Node2D"]
 z_index = 1
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_jqd1d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
