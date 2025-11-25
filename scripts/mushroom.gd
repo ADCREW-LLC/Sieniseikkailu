@@ -39,7 +39,7 @@ func _ready():
 		"Amanita muscaria": # poisonous
 			poisonous = true
 			edible = false    # it's poisonous, so this is false
-			points_value = -1
+			points_value = 1
 		"Boletus edulis": # healthy
 			poisonous = false
 			edible = true     # it's edible, so this is true
@@ -51,11 +51,11 @@ func _ready():
 		"Amanita Virosa":
 			poisonous = true
 			edible = false 
-			points_value = -1
+			points_value = 1
 		"Hygrocybe Chlorophana":
 			poisonous = true
 			edible = false 
-			points_value = -1
+			points_value = 1
 		"Hygrocybe Punicea": 
 			poisonous = false
 			edible = true 
