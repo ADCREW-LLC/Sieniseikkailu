@@ -12,15 +12,70 @@ var player_in_range = false
 @onready var sprite: Sprite2D = $Sprite2D
 
 # --- preload textures or animations for each mushroom type ---
-const MUSHROOM_SPRITES := {
-	"Boletus edulis": preload("res://arts/mushrooms/boletus_edulis.png"),
-	"Amanita muscaria": preload("res://arts/mushrooms/amanita_muscaria.png"),
-	"Chanterelle": preload("res://arts/mushrooms/chanterelle.png"),
-	"Amanita Virosa": preload("res://arts/mushrooms/Amanita-virosa.png"),
-	"Hygrocybe Chlorophana": preload("res://arts/mushrooms/Hygrocybe-chlorophana.png"),
-	"Hygrocybe Punicea": preload("res://arts/mushrooms/Hygrocybe-punicea.png"),
-	"Suillus Grevillei": preload("res://arts/mushrooms/suillus-grevillei.png"),
-	"Russula Paludosa": preload("res://arts/mushrooms/Russula-paludosa.png")
+const MUSHROOM_DATA := {
+	"Boletus edulis": {
+		"sprite": preload("res://arts/mushrooms/boletus_edulis.png"),
+		"scene": preload("res://scenes/Mushroom.tscn"),
+		"poisonous": false,
+		"edible": true,
+		"points_value": 1
+	},
+
+	"Amanita muscaria": {
+		"sprite": preload("res://arts/mushrooms/amanita_muscaria.png"),
+		"scene": preload("res://scenes/Mushroom.tscn"),
+		"poisonous": true,
+		"edible": false,
+		"points_value": -1
+	},
+
+	"Chanterelle": { # same as Cantharellus cibarius
+		"sprite": preload("res://arts/mushrooms/chanterelle.png"),
+		"scene": preload("res://scenes/Mushroom.tscn"),
+		"poisonous": false,
+		"edible": true,
+		"points_value": 1
+	},
+
+	"Amanita Virosa": {
+		"sprite": preload("res://arts/mushrooms/Amanita-virosa.png"),
+		"scene": preload("res://scenes/Mushroom.tscn"),
+		"poisonous": true,
+		"edible": false,
+		"points_value": -1
+	},
+
+	"Hygrocybe Chlorophana": {
+		"sprite": preload("res://arts/mushrooms/Hygrocybe-chlorophana.png"),
+		"scene": preload("res://scenes/Mushroom.tscn"),
+		"poisonous": true,
+		"edible": false,
+		"points_value": -1
+	},
+
+	"Hygrocybe Punicea": {
+		"sprite": preload("res://arts/mushrooms/Hygrocybe-punicea.png"),
+		"scene": preload("res://scenes/Mushroom.tscn"),
+		"poisonous": false,
+		"edible": true,
+		"points_value": 1
+	},
+
+	"Suillus Grevillei": {
+		"sprite": preload("res://arts/mushrooms/suillus-grevillei.png"),
+		"scene": preload("res://scenes/Mushroom.tscn"),
+		"poisonous": false,
+		"edible": true,
+		"points_value": 1
+	},
+
+	"Russula Paludosa": {
+		"sprite": preload("res://arts/mushrooms/Russula-paludosa.png"),
+		"scene": preload("res://scenes/Mushroom.tscn"),
+		"poisonous": false,
+		"edible": true,
+		"points_value": 1
+	}
 }
 
 func _ready():
@@ -29,49 +84,7 @@ func _ready():
 	connect("body_exited", Callable(self, "_on_body_exited"))
 	
 	# Set visuals based on type
-	if MUSHROOM_SPRITES.has(type):
-		sprite.texture = MUSHROOM_SPRITES[type]
-	else:
-		push_warning("Unknown mushroom type: %s" % type)
-
-	# Color coding for visual feedback
-	match type:
-		"Amanita muscaria": # poisonous
-			poisonous = true
-			edible = false    # it's poisonous, so this is false
-			points_value = 1
-		"Boletus edulis": # healthy
-			poisonous = false
-			edible = true     # it's edible, so this is true
-			points_value = 1
-		"Cantharellus cibarius": # healthy 
-			poisonous = false
-			edible = true 
-			points_value = 1
-		"Amanita Virosa":
-			poisonous = true
-			edible = false 
-			points_value = 1
-		"Hygrocybe Chlorophana":
-			poisonous = true
-			edible = false 
-			points_value = 1
-		"Hygrocybe Punicea": 
-			poisonous = false
-			edible = true 
-			points_value = 1
-		"Suillus Grevillei":
-			poisonous = false
-			edible = true 
-			points_value = 1
-		"Russula Paludosa":
-			poisonous = false
-			edible = true 
-			points_value = 1
-			
-		#_:  #(If we want to add more types. Added this as a comment to avoid interference with chantarellus' code.)
-			#poisonous = false # neutral
-			#points_value = 1
+	sprite.texture = MUSHROOM_DATA[type]["sprite"]
 
 func _on_body_entered(body):
 	if body.name == "Player":
