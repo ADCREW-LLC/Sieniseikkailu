@@ -13,7 +13,7 @@ config_version=5
 config/name="Sieniseikkailu Main"
 config/description="Moomin mushroom collecting game with chunk streaming"
 config/tags="Game,2D,Moomin,Mushroom,Prototype"
-run/main_scene="uid://c1xfytyaf7p6"
+run/main_scene="uid://xdcuxe8axppf"
 config/features=PackedStringArray("4.5")
 config/icon="uid://c6jytqxmqwyn7"
 

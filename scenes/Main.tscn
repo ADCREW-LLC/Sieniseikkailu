@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://b2vt1pq0448il" path="res://arts/mushrooms/amanita_muscaria.png" id="5_vcsgt"]
 [ext_resource type="Script" uid="uid://coqjhglj8r4y6" path="res://scripts/score_label.gd" id="6_c01mt"]
 [ext_resource type="Script" uid="uid://vahvmyitpio5" path="res://pause_menu.gd" id="7_nxtc6"]
-[ext_resource type="Script" uid="uid://vahvmyitpio5" path="res://scripts/pause_menu.gd" id="7_nxtc6"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1")

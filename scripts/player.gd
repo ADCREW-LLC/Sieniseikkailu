@@ -1,7 +1,7 @@
 # player.gd
-extends Area2D
+extends CharacterBody2D #Switched to CharacterBody2D
 
-@export var speed: float = 150.0   # Player movement speed
+@export var speed: float = 250.0   # Player movement speed
 var health: int = 5                # Starting health
 var points: int = 0                # Collected mushroom points
 
@@ -9,16 +9,17 @@ var points: int = 0                # Collected mushroom points
 var timer := 0.0
 var active := false
 
-var velocity: Vector2 = Vector2.ZERO
-
+# velocity is a built-in property of CharacterBody2D, but we initialize it here
 var facing_direction = Vector2.ZERO
 
 @onready var pickup_area = $PickupArea
 
-func _process(delta):
+# Switched to _physics_process for reliable physics updates.
+func _physics_process(delta):
 	# Reset velocity
 	velocity = Vector2.ZERO
 	pickup_area.position = Vector2.ZERO
+	
 	# Handle movement input
 	if Input.is_action_pressed("move_right"):
 		velocity.x += 1
@@ -31,16 +32,17 @@ func _process(delta):
 
 	# Handle movement + animation
 	if velocity.length() > 0:
+		# 1. Normalize and apply speed to the built-in 'velocity' property
 		velocity = velocity.normalized() * speed
 		$AnimatedSprite2D.play()
 		_play_step_sound()
 	else:
+		# 2. Stop movement
+		velocity = Vector2.ZERO
 		$AnimatedSprite2D.stop()
 		_stop_step_sound()
 
-	# Move player manually
-	if velocity != Vector2.ZERO:
-		position += velocity * delta
+	move_and_slide() 
 
 	# Direction handling + scaling
 	if velocity.x != 0:
@@ -54,7 +56,7 @@ func _process(delta):
 		$AnimatedSprite2D.flip_h = velocity.x < 0
 
 		# Scale horizontally facing animations
-		$AnimatedSprite2D.scale = Vector2(1.0, 1.0)  # normal size
+		$AnimatedSprite2D.scale = Vector2(1.0, 1.0) # normal size
 
 	elif velocity.y != 0:
 		if velocity.y < 0:
@@ -65,7 +67,7 @@ func _process(delta):
 			$AnimatedSprite2D.animation = &"down"
 
 		# Scale vertical-facing animations
-		$AnimatedSprite2D.scale = Vector2(0.8, 0.8)  # slightly smaller
+		$AnimatedSprite2D.scale = Vector2(0.8, 0.8) # slightly smaller
 		
 	if Input.is_action_pressed("pickup"):			#Sets the postion when you press pickup
 		pickup_area.position = facing_direction		#This might be redundant but it isnt ineffiecent enough to fix
