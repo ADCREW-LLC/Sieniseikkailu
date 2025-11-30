@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b2vt1pq0448il" path="res://arts/mushrooms/amanita_muscaria.png" id="5_vcsgt"]
 [ext_resource type="Script" uid="uid://coqjhglj8r4y6" path="res://scripts/score_label.gd" id="6_c01mt"]
 [ext_resource type="Script" uid="uid://vahvmyitpio5" path="res://pause_menu.gd" id="7_nxtc6"]
+[ext_resource type="Script" uid="uid://vahvmyitpio5" path="res://scripts/pause_menu.gd" id="7_nxtc6"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1")
@@ -72,16 +73,22 @@ grow_vertical = 2
 
 [node name="ResumeButton" type="Button" parent="PauseMenu/Control/PauseStack"]
 layout_mode = 2
+focus_next = NodePath("../MainMenuButton")
+focus_previous = NodePath("../QuitButton")
 theme_override_font_sizes/font_size = 50
 text = "Resume"
 
 [node name="MainMenuButton" type="Button" parent="PauseMenu/Control/PauseStack"]
 layout_mode = 2
+focus_next = NodePath("../QuitButton")
+focus_previous = NodePath("../ResumeButton")
 theme_override_font_sizes/font_size = 50
 text = "Main Menu"
 
 [node name="QuitButton" type="Button" parent="PauseMenu/Control/PauseStack"]
 layout_mode = 2
+focus_next = NodePath("../ResumeButton")
+focus_previous = NodePath("../MainMenuButton")
 theme_override_font_sizes/font_size = 50
 text = "Quit"
 

@@ -85,7 +85,7 @@ func _ready():
 	
 	# Set visuals based on type
 	sprite.texture = MUSHROOM_DATA[type]["sprite"]
-	
+
 func _on_body_entered(body):
 	if body.name == "Player":
 		player_in_range = true

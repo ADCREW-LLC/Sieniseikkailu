@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8whsxadvvplh"]
+[gd_scene load_steps=2 format=3 uid="uid://xdcuxe8axppf"]
 
 [ext_resource type="Script" uid="uid://pinmx47so1bi" path="res://main_menu.gd" id="1_06t4h"]
 
@@ -21,11 +21,17 @@ grow_vertical = 2
 
 [node name="PlayButton" type="Button" parent="ButtonStack"]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../QuitButton")
+focus_next = NodePath("../QuitButton")
+focus_previous = NodePath("../QuitButton")
 theme_override_font_sizes/font_size = 100
 text = "Play"
 
 [node name="QuitButton" type="Button" parent="ButtonStack"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../PlayButton")
+focus_next = NodePath("../PlayButton")
+focus_previous = NodePath("../PlayButton")
 theme_override_font_sizes/font_size = 100
 text = "Quit"
 

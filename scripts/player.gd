@@ -19,7 +19,6 @@ func _process(delta):
 	# Reset velocity
 	velocity = Vector2.ZERO
 	pickup_area.position = Vector2.ZERO
-
 	# Handle movement input
 	if Input.is_action_pressed("move_right"):
 		velocity.x += 1
