@@ -48,4 +48,3 @@ func _ready():
 
 	# Pick a random texture and scale
 	sprite.texture = ROCK_TEXTURES.pick_random()
-	sprite.scale = Vector2(randf_range(0.6, 1.0), randf_range(0.6, 1.0))
