@@ -56,7 +56,7 @@ func _physics_process(delta):
 		$AnimatedSprite2D.flip_h = velocity.x < 0
 
 		# Scale horizontally facing animations
-		$AnimatedSprite2D.scale = Vector2(1.0, 1.0) # normal size
+		$AnimatedSprite2D.scale = Vector2(1.2, 1.2) # normal size
 
 	elif velocity.y != 0:
 		if velocity.y < 0:
@@ -67,7 +67,7 @@ func _physics_process(delta):
 			$AnimatedSprite2D.animation = &"down"
 
 		# Scale vertical-facing animations
-		$AnimatedSprite2D.scale = Vector2(0.8, 0.8) # slightly smaller
+		$AnimatedSprite2D.scale = Vector2(1.2, 1.2) # slightly smaller
 		
 	if Input.is_action_pressed("pickup"):			#Sets the postion when you press pickup
 		pickup_area.position = facing_direction		#This might be redundant but it isnt ineffiecent enough to fix

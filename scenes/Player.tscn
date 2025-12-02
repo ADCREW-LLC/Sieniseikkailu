@@ -624,11 +624,14 @@ size = Vector2(150, 150)
 script = ExtResource("1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.8, 0.8)
+scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_6e537")
-animation = &"down"
+animation = &"right"
+frame = 19
+frame_progress = 0.18022357
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.2, 1.2)
 shape = SubResource("CapsuleShape2D_p07f3")
 
 [node name="FootstepForest" type="AudioStreamPlayer" parent="."]
