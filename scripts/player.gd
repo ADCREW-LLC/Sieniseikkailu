@@ -34,12 +34,10 @@ func _physics_process(delta):
 	if velocity.length() > 0:
 		# 1. Normalize and apply speed to the built-in 'velocity' property
 		velocity = velocity.normalized() * speed
-		$AnimatedSprite2D.play()
 		_play_step_sound()
 	else:
 		# 2. Stop movement
 		velocity = Vector2.ZERO
-		$AnimatedSprite2D.stop()
 		_stop_step_sound()
 
 	move_and_slide() 
@@ -54,10 +52,6 @@ func _physics_process(delta):
 		$AnimatedSprite2D.animation = &"right"
 		$AnimatedSprite2D.flip_v = false
 		$AnimatedSprite2D.flip_h = velocity.x < 0
-
-		# Scale horizontally facing animations
-		$AnimatedSprite2D.scale = Vector2(1.0, 1.0) # normal size
-
 	elif velocity.y != 0:
 		if velocity.y < 0:
 			facing_direction = Vector2(0,-150) #Up
@@ -65,9 +59,12 @@ func _physics_process(delta):
 		else:
 			facing_direction = Vector2(0,150) #Down
 			$AnimatedSprite2D.animation = &"down"
-
-		# Scale vertical-facing animations
-		$AnimatedSprite2D.scale = Vector2(0.8, 0.8) # slightly smaller
+	else: 
+		# Idle
+		$AnimatedSprite2D.animation = &"idle"
+		facing_direction = Vector2(-150,0) #Left
+	
+	$AnimatedSprite2D.play()
 		
 	if Input.is_action_pressed("pickup"):			#Sets the postion when you press pickup
 		pickup_area.position = facing_direction		#This might be redundant but it isnt ineffiecent enough to fix
