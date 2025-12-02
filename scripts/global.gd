@@ -1,6 +1,6 @@
 extends Node
 
-const CHUNK_SIZE = 1024 # Your defined chunk size, should be the same size of the background image of the chunk
+const CHUNK_SIZE = 640 # Your defined chunk size, should be the same size of the background image of the chunk
 const OBJECT_MARGIN = 0
 const OBJECT_PER_CHUNK = 30
 
