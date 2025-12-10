@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Sieniseikkailu Main"
+config/name="Sieniseikkailu Main OLD"
 config/description="Moomin mushroom collecting game with chunk streaming"
 config/tags="Game,2D,Moomin,Mushroom,Prototype"
 run/main_scene="uid://c1xfytyaf7p6"

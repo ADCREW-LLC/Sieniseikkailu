@@ -5,7 +5,7 @@ var timer := 0.0
 var active := false
 
 func _process(delta):
-	if Input.is_action_just_pressed("pickup") and not active:
+	if Input.is_action_just_pressed("pickup") and not active:					#stops player from holding pickup
 		activate_area(duration)
 	
 	if active:																	#Timer

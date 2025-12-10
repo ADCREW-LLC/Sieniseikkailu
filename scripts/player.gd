@@ -22,17 +22,17 @@ func _process(delta):
 
 	# Handle movement input
 	if Input.is_action_pressed("move_right"):
-		velocity.x += 1
+		velocity.x += 50
 	if Input.is_action_pressed("move_left"):
-		velocity.x -= 1
+		velocity.x -= 50
 	if Input.is_action_pressed("move_down"):
-		velocity.y += 1
+		velocity.y += 50
 	if Input.is_action_pressed("move_up"):
-		velocity.y -= 1
+		velocity.y -= 50
 
 	# Handle movement + animation
 	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
+		velocity = velocity * speed
 		$AnimatedSprite2D.play()
 		_play_step_sound()
 	else:
