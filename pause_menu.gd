@@ -1,17 +1,11 @@
 extends CanvasLayer
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 065097e (Fixed the score bug and added the mushroom inspect pictures plus button designs)
 var is_paused := false
 
 func _process(_delta):
 	if Input.is_action_just_pressed("Pause"):									# AKA press ESC
-<<<<<<< HEAD
-=======
 		$Control/PauseStack/ResumeButton.grab_focus()
->>>>>>> 065097e (Fixed the score bug and added the mushroom inspect pictures plus button designs)
 		toggle_pause()
 
 func toggle_pause():

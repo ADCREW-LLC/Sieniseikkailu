@@ -12,72 +12,7 @@ var player_in_range = false
 @onready var sprite: Sprite2D = $Sprite2D
 
 # --- preload textures or animations for each mushroom type ---
-<<<<<<< HEAD
-const MUSHROOM_DATA := {
-	"Boletus edulis": {
-		"sprite": preload("res://arts/mushrooms/boletus_edulis.png"),
-		"scene": preload("res://scenes/Mushroom.tscn"),
-		"poisonous": false,
-		"edible": true,
-		"points_value": 1
-	},
 
-	"Amanita muscaria": {
-		"sprite": preload("res://arts/mushrooms/amanita_muscaria.png"),
-		"scene": preload("res://scenes/Mushroom.tscn"),
-		"poisonous": true,
-		"edible": false,
-		"points_value": -1
-	},
-
-	"Chanterelle": { # same as Cantharellus cibarius
-		"sprite": preload("res://arts/mushrooms/chanterelle.png"),
-		"scene": preload("res://scenes/Mushroom.tscn"),
-		"poisonous": false,
-		"edible": true,
-		"points_value": 1
-	},
-
-	"Amanita Virosa": {
-		"sprite": preload("res://arts/mushrooms/Amanita-virosa.png"),
-		"scene": preload("res://scenes/Mushroom.tscn"),
-		"poisonous": true,
-		"edible": false,
-		"points_value": -1
-	},
-
-	"Hygrocybe Chlorophana": {
-		"sprite": preload("res://arts/mushrooms/Hygrocybe-chlorophana.png"),
-		"scene": preload("res://scenes/Mushroom.tscn"),
-		"poisonous": true,
-		"edible": false,
-		"points_value": -1
-	},
-
-	"Hygrocybe Punicea": {
-		"sprite": preload("res://arts/mushrooms/Hygrocybe-punicea.png"),
-		"scene": preload("res://scenes/Mushroom.tscn"),
-		"poisonous": false,
-		"edible": true,
-		"points_value": 1
-	},
-
-	"Suillus Grevillei": {
-		"sprite": preload("res://arts/mushrooms/suillus-grevillei.png"),
-		"scene": preload("res://scenes/Mushroom.tscn"),
-		"poisonous": false,
-		"edible": true,
-		"points_value": 1
-	},
-
-	"Russula Paludosa": {
-		"sprite": preload("res://arts/mushrooms/Russula-paludosa.png"),
-		"scene": preload("res://scenes/Mushroom.tscn"),
-		"poisonous": false,
-		"edible": true,
-		"points_value": 1
-	}
-=======
 const MUSHROOM_SPRITES := {
 	"Boletus edulis": preload("res://arts/mushrooms/boletus_edulis.png"),
 	"Amanita muscaria": preload("res://arts/mushrooms/amanita_muscaria.png"),
@@ -97,7 +32,6 @@ const Mushroom_Inspect_Sprites := {
 	"Hygrocybe Punicea": preload("res://arts/Inspect Images/Hygrocybe punicea.png"),
 	"Suillus Grevillei": preload("res://arts/Inspect Images/Suillus grevillei.png"),
 	"Russula Paludosa": preload("res://arts/Inspect Images/Russula paludosa.png")
->>>>>>> 065097e (Fixed the score bug and added the mushroom inspect pictures plus button designs)
 }
 
 func _ready():
@@ -106,19 +40,6 @@ func _ready():
 	connect("body_exited", Callable(self, "_on_body_exited"))
 	
 	# Set visuals based on type
-<<<<<<< HEAD
-	sprite.texture = MUSHROOM_DATA[type]["sprite"]
-
-func _on_body_entered(body):
-	if body.name == "Player":
-		player_in_range = true
-		if poisonous:
-			body.on_poisonous_mushroom_touched()
-
-func _on_body_exited(body):
-	if body.name == "Player":
-		player_in_range = false
-=======
 	if MUSHROOM_SPRITES.has(type):
 		sprite.texture = MUSHROOM_SPRITES[type]
 	else:
@@ -165,4 +86,3 @@ func _on_body_exited(body):
 		#_:  #(If we want to add more types. Added this as a comment to avoid interference with chantarellus' code.)
 			#poisonous = false # neutral
 			#points_value = 1
->>>>>>> 065097e (Fixed the score bug and added the mushroom inspect pictures plus button designs)
