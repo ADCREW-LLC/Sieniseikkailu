@@ -1,11 +1,23 @@
 extends Area2D
 
 @export var duration: float = 0.5												#Duration of pickup
+@export var type: String = "Boletus edulis"
 var timer := 0.0
 var active := false
 
 @onready var popup = get_node("/root/Main/PickupUI/MushroomPopup")
 var current_mushroom: Area2D = null
+
+const Mushroom_Inspect_Sprites := {
+	"Boletus edulis": preload("res://arts/Inspect Images/Boletus edulis.png"),
+	"Amanita muscaria": preload("res://arts/Inspect Images/Amanita muscaria.png"),
+	"Chanterelle": preload("res://arts/Inspect Images/Chanterrelle.png"),
+	"Amanita Virosa": preload("res://arts/Inspect Images/Amanita virosa.png"),
+	"Hygrocybe Chlorophana": preload("res://arts/Inspect Images/Hygrocybe chlorophana.png"),
+	"Hygrocybe Punicea": preload("res://arts/Inspect Images/Hygrocybe punicea.png"),
+	"Suillus Grevillei": preload("res://arts/Inspect Images/Suillus grevillei.png"),
+	"Russula Paludosa": preload("res://arts/Inspect Images/Russula paludosa.png")
+}
 
 func _ready():
 	deactivate_area()
@@ -36,6 +48,10 @@ func _on_area_entered(area: Area2D):
 	
 	if area.is_in_group("Mushroom") and current_mushroom == null:
 		current_mushroom = area
+		var mushroom_type = area.type
+		if Mushroom_Inspect_Sprites.has(mushroom_type):
+			print("Setting inspect image for type:", mushroom_type)
+			$/root/Main/PickupUI/MushroomPopup/MushroomImage.texture = Mushroom_Inspect_Sprites[mushroom_type]
 		open_popup(area)
 	#if not collected_mushrooms.has(area):
 	#	area.name = area.type
