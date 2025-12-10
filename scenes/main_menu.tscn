@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=3 uid="uid://xdcuxe8axppf"]
+
+[ext_resource type="Script" uid="uid://pinmx47so1bi" path="res://main_menu.gd" id="1_06t4h"]
+[ext_resource type="Texture2D" uid="uid://b7tvvf8o284g4" path="res://arts/ui/Button.png" id="2_ekxnf"]
+
+[node name="MainMenu" type="Control"]
+z_index = 100
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_06t4h")
+
+[node name="ButtonStack" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 76.0
+offset_right = -627.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="PlayButton" type="Button" parent="ButtonStack"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../QuitButton")
+focus_next = NodePath("../QuitButton")
+focus_previous = NodePath("../QuitButton")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 100
+text = "Play"
+icon = ExtResource("2_ekxnf")
+icon_alignment = 1
+expand_icon = true
+
+[node name="QuitButton" type="Button" parent="ButtonStack"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../PlayButton")
+focus_next = NodePath("../PlayButton")
+focus_previous = NodePath("../PlayButton")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 100
+text = "Quit"
+icon = ExtResource("2_ekxnf")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="ButtonStack/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="ButtonStack/QuitButton" to="." method="_on_quit_button_pressed"]

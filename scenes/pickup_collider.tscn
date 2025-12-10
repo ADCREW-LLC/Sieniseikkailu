@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://cuyosbt8pf6xr"]
+
+[node name="Pickup Collider" type="Area2D"]
+z_index = 100
