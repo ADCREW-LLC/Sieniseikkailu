@@ -1,40 +1,170 @@
-[gd_scene load_steps=2 format=3 uid="uid://xdcuxe8axppf"]
+[gd_scene load_steps=9 format=3 uid="uid://xdcuxe8axppf"]
 
-[ext_resource type="Script" uid="uid://pinmx47so1bi" path="res://main_menu.gd" id="1_06t4h"]
+[ext_resource type="Script" uid="uid://ch5b1i8io0gmq" path="res://scripts/main.gd" id="1_tbmy8"]
+[ext_resource type="Texture2D" uid="uid://b7tvvf8o284g4" path="res://arts/ui/Button.png" id="2_ekxnf"]
+[ext_resource type="PackedScene" uid="uid://23ke3dloqhq6" path="res://scenes/Player.tscn" id="2_jk1qb"]
+[ext_resource type="PackedScene" uid="uid://bhfo3eenp1fuy" path="res://scenes/Chunk.tscn" id="3_5dd4i"]
+[ext_resource type="AudioStream" uid="uid://jlul2vn8altj" path="res://arts/musics/retro-gaming-271301.mp3" id="4_lgwnu"]
+[ext_resource type="Texture2D" uid="uid://b2vt1pq0448il" path="res://arts/mushrooms/amanita_muscaria.png" id="5_flqon"]
+[ext_resource type="Script" uid="uid://coqjhglj8r4y6" path="res://scripts/score_label.gd" id="6_rcqid"]
+[ext_resource type="Script" uid="uid://vahvmyitpio5" path="res://pause_menu.gd" id="7_1ajci"]
 
-[node name="MainMenu" type="Control"]
+[node name="Main" type="Node2D"]
+script = ExtResource("1_tbmy8")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("2_jk1qb")]
 z_index = 100
+position = Vector2(100, 100)
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" parent="Player/PickupArea" index="0"]
+scale = Vector2(1, 1.2)
+
+[node name="Chunk" parent="." instance=ExtResource("3_5dd4i")]
+
+[node name="RetroGaming271301" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_lgwnu")
+volume_db = -12.915
+autoplay = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ScoreMeter" type="Node" parent="UI"]
+
+[node name="MushroomIcon" type="TextureRect" parent="UI/ScoreMeter"]
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 72.0
+offset_bottom = 83.0
+texture = ExtResource("5_flqon")
+
+[node name="ScoreLabel" type="Label" parent="UI/ScoreMeter"]
+offset_left = 80.0
+offset_top = 19.0
+offset_right = 126.0
+offset_bottom = 86.0
+theme_override_font_sizes/font_size = 48
+text = "0"
+script = ExtResource("6_rcqid")
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("7_1ajci")
+
+[node name="Control" type="Control" parent="PauseMenu"]
+process_mode = 3
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_06t4h")
+anchors_preset = 0
+offset_right = 1158.0
+offset_bottom = 646.0
 
-[node name="ButtonStack" type="VBoxContainer" parent="."]
+[node name="PauseStack" type="HBoxContainer" parent="PauseMenu/Control"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -242.5
+offset_top = -38.5
+offset_right = 242.5
+offset_bottom = 38.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayButton" type="Button" parent="ButtonStack"]
+[node name="ResumeButton" type="Button" parent="PauseMenu/Control/PauseStack"]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../QuitButton")
-focus_next = NodePath("../QuitButton")
+focus_next = NodePath("../MainMenuButton")
 focus_previous = NodePath("../QuitButton")
-theme_override_font_sizes/font_size = 100
-text = "Play"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "Resume"
+icon = ExtResource("2_ekxnf")
+icon_alignment = 1
 
-[node name="QuitButton" type="Button" parent="ButtonStack"]
+[node name="MainMenuButton" type="Button" parent="PauseMenu/Control/PauseStack"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../PlayButton")
-focus_next = NodePath("../PlayButton")
-focus_previous = NodePath("../PlayButton")
-theme_override_font_sizes/font_size = 100
-text = "Quit"
+focus_next = NodePath("../QuitButton")
+focus_previous = NodePath("../ResumeButton")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "Main Menu"
+icon = ExtResource("2_ekxnf")
+icon_alignment = 1
 
-[connection signal="pressed" from="ButtonStack/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="ButtonStack/QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="QuitButton" type="Button" parent="PauseMenu/Control/PauseStack"]
+layout_mode = 2
+focus_next = NodePath("../ResumeButton")
+focus_previous = NodePath("../MainMenuButton")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "Quit"
+icon = ExtResource("2_ekxnf")
+icon_alignment = 1
+
+[node name="PickupUI" type="CanvasLayer" parent="."]
+
+[node name="MushroomPopup" type="Control" parent="PickupUI"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MushroomImage" type="TextureRect" parent="PickupUI/MushroomPopup"]
+layout_mode = 0
+offset_left = -300.0
+offset_top = -350.0
+offset_right = -260.0
+offset_bottom = -310.0
+scale = Vector2(1.3, 1.3)
+
+[node name="PickupStack" type="HBoxContainer" parent="PickupUI/MushroomPopup"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -408.0
+offset_top = 130.0
+offset_right = 408.0
+offset_bottom = 218.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 200
+
+[node name="Collect" type="Button" parent="PickupUI/MushroomPopup/PickupStack"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "Collect"
+icon = ExtResource("2_ekxnf")
+icon_alignment = 1
+
+[node name="Leave" type="Button" parent="PickupUI/MushroomPopup/PickupStack"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "Leave"
+icon = ExtResource("2_ekxnf")
+icon_alignment = 1
+
+[connection signal="pressed" from="PauseMenu/Control/PauseStack/ResumeButton" to="PauseMenu" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PauseMenu/Control/PauseStack/MainMenuButton" to="PauseMenu" method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="PauseMenu/Control/PauseStack/QuitButton" to="PauseMenu" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="PickupUI/MushroomPopup/PickupStack/Collect" to="Player/PickupArea" method="_on_collect_pressed"]
+[connection signal="pressed" from="PickupUI/MushroomPopup/PickupStack/Leave" to="Player/PickupArea" method="_on_leave_pressed"]
+
+[editable path="Player"]

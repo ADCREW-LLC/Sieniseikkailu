@@ -1,9 +1,11 @@
 extends CanvasLayer
 
+
 var is_paused := false
 
 func _process(_delta):
 	if Input.is_action_just_pressed("Pause"):									# AKA press ESC
+		$Control/PauseStack/ResumeButton.grab_focus()
 		toggle_pause()
 
 func toggle_pause():

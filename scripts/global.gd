@@ -7,7 +7,17 @@ const OBJECT_PER_CHUNK = 30
 var WORLD_MUSHROOM_DATA: Dictionary = {}
 var WORLD_STATIC_DATA: Dictionary = {}
 
-const Mushrooms = preload("res://scripts/mushroom.gd")
+
+const MUSHROOM_TYPES = [
+	{ "name": "Boletus edulis", "scene": preload("res://scenes/Mushroom.tscn") },
+	{ "name": "Amanita muscaria", "scene": preload("res://scenes/Mushroom.tscn") },
+	{ "name": "Chanterelle", "scene": preload("res://scenes/Mushroom.tscn") },
+	{ "name": "Suillus Grevillei", "scene": preload("res://scenes/Mushroom.tscn") },
+	{ "name": "Amanita Virosa", "scene": preload("res://scenes/Mushroom.tscn") },
+	{ "name": "Hygrocybe Chlorophana", "scene": preload("res://scenes/Mushroom.tscn") },
+	{ "name": "Hygrocybe Punicea", "scene": preload("res://scenes/Mushroom.tscn") },
+	{ "name": "Russula Paludosa", "scene": preload("res://scenes/Mushroom.tscn") }
+]
 
 func _ready():
 	# Generate the global data
@@ -28,10 +38,9 @@ func generate_world_data():
 				var pos = Vector2(rng.randf_range(OBJECT_MARGIN, CHUNK_SIZE - OBJECT_MARGIN), 
 					rng.randf_range(OBJECT_MARGIN, CHUNK_SIZE - OBJECT_MARGIN))
 				if randi_range(1, 10) <= 5: 
-					var key = Mushrooms.MUSHROOM_DATA.keys().pick_random()
-					var data = Mushrooms.MUSHROOM_DATA[key]
+					var data = MUSHROOM_TYPES.pick_random()
 					mushrooms.append({
-						"type": key,
+						"type": data["name"],
 						"scene": data["scene"],
 						"pos": pos
 					})
