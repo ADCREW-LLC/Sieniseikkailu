@@ -23,16 +23,6 @@ const MUSHROOM_SPRITES := {
 	"Suillus Grevillei": preload("res://arts/mushrooms/suillus-grevillei.png"),
 	"Russula Paludosa": preload("res://arts/mushrooms/Russula-paludosa.png")
 }
-const Mushroom_Inspect_Sprites := {
-	"Boletus edulis": preload("res://arts/Inspect Images/Boletus edulis.png"),
-	"Amanita muscaria": preload("res://arts/Inspect Images/Amanita muscaria.png"),
-	"Chanterelle": preload("res://arts/Inspect Images/Chanterrelle.png"),
-	"Amanita Virosa": preload("res://arts/Inspect Images/Amanita virosa.png"),
-	"Hygrocybe Chlorophana": preload("res://arts/Inspect Images/Hygrocybe chlorophana.png"),
-	"Hygrocybe Punicea": preload("res://arts/Inspect Images/Hygrocybe punicea.png"),
-	"Suillus Grevillei": preload("res://arts/Inspect Images/Suillus grevillei.png"),
-	"Russula Paludosa": preload("res://arts/Inspect Images/Russula paludosa.png")
-}
 
 func _ready():
 	# Connect collision signals
@@ -45,8 +35,7 @@ func _ready():
 	else:
 		push_warning("Unknown mushroom type: %s" % type)
 		
-	if Mushroom_Inspect_Sprites.has(type):
-		get_node("/root/Main/PickupUI/MushroomPopup/MushroomImage").texture = Mushroom_Inspect_Sprites[type]
+
 
 	# Color coding for visual feedback
 	match type:
