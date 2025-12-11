@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://23ke3dloqhq6" path="res://scenes/Player.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://bhfo3eenp1fuy" path="res://scenes/Chunk.tscn" id="3"]
 [ext_resource type="AudioStream" uid="uid://jlul2vn8altj" path="res://arts/musics/retro-gaming-271301.mp3" id="4_rarhs"]
-[ext_resource type="Texture2D" uid="uid://b2vt1pq0448il" path="res://arts/mushrooms/amanita_muscaria.png" id="5_vcsgt"]
+[ext_resource type="Texture2D" uid="uid://38ekp7mlbun" path="res://arts/Inspect Images/book-mushroom-counter1.png" id="5_jlsqs"]
 [ext_resource type="Script" uid="uid://coqjhglj8r4y6" path="res://scripts/score_label.gd" id="6_c01mt"]
 [ext_resource type="Script" uid="uid://vahvmyitpio5" path="res://pause_menu.gd" id="7_nxtc6"]
 [ext_resource type="Texture2D" uid="uid://b7tvvf8o284g4" path="res://arts/ui/Button.png" id="8_jlsqs"]
@@ -34,18 +34,20 @@ autoplay = true
 [node name="ScoreMeter" type="Node" parent="UI"]
 
 [node name="MushroomIcon" type="TextureRect" parent="UI/ScoreMeter"]
-offset_left = 7.0
-offset_top = 7.0
-offset_right = 72.0
-offset_bottom = 83.0
-texture = ExtResource("5_vcsgt")
+offset_left = -27.0
+offset_top = -41.000004
+offset_right = 485.0
+offset_bottom = 471.0
+scale = Vector2(0.47984144, 0.48145068)
+texture = ExtResource("5_jlsqs")
 
 [node name="ScoreLabel" type="Label" parent="UI/ScoreMeter"]
-offset_left = 80.0
-offset_top = 19.0
-offset_right = 126.0
-offset_bottom = 86.0
-theme_override_font_sizes/font_size = 48
+offset_left = 73.00001
+offset_top = 63.0
+offset_right = 119.00001
+offset_bottom = 130.0
+scale = Vector2(0.97560984, 0.9848485)
+theme_override_font_sizes/font_size = 30
 text = "0"
 script = ExtResource("6_c01mt")
 
