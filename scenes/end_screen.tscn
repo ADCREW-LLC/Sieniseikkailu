@@ -66,6 +66,8 @@ theme_override_constants/separation = 150
 
 [node name="MainMenu" type="Button" parent="CanvasLayer2/MenuButtonContainer"]
 layout_mode = 2
+focus_next = NodePath("../Quit")
+focus_previous = NodePath("../Try Again")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
 theme_override_font_sizes/font_size = 40
@@ -75,6 +77,8 @@ icon_alignment = 1
 
 [node name="Quit" type="Button" parent="CanvasLayer2/MenuButtonContainer"]
 layout_mode = 2
+focus_next = NodePath("../Try Again")
+focus_previous = NodePath("../MainMenu")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
 theme_override_font_sizes/font_size = 40
@@ -84,6 +88,8 @@ icon_alignment = 1
 
 [node name="Try Again" type="Button" parent="CanvasLayer2/MenuButtonContainer"]
 layout_mode = 2
+focus_next = NodePath("../MainMenu")
+focus_previous = NodePath("../Quit")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
 theme_override_font_sizes/font_size = 40

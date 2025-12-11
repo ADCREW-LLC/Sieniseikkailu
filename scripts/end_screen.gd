@@ -4,12 +4,18 @@ func _on_quit_pressed():
 	get_tree().quit()
 
 func _on_try_again_pressed():
+	Scoremanager.edible_count = 0
+	Scoremanager.poisonous_count = 0
+	Scoremanager.score = 0
 	get_tree().change_scene_to_file("res://scenes/Main.tscn")
 
 func _on_main_menu_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 func _process(delta: float) -> void:
+	if Scoremanager.score == 0:
+		$CanvasLayer2/MenuButtonContainer/MainMenu.grab_focus()
+		Scoremanager.score = 1
 	$CanvasLayer2/Scoreboard/VBoxContainer/Edible.text = "Edible: " + str(Scoremanager.edible_count)
 	$CanvasLayer2/Scoreboard/VBoxContainer/Poisonous.text = "Poisonous: " + str(Scoremanager.poisonous_count)
 	#$Scoreboard/VBoxContainer/TypesList.text = str(PickupArea.get_collected_mushrooms())
